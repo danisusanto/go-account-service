@@ -1,0 +1,16 @@
+FROM golang:1.26.1-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache git
+
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+
+COPY go.mod .
+RUN go mod download
+
+COPY . .
+
+RUN go build -v -o /usr/local/bin/app ./cmd/http
+
+RUN go build -v -o /usr/local/bin/worker ./cmd/worker

@@ -1,0 +1,26 @@
+{{template "layout" .}}
+
+{{define "content"}}
+    <h1>Email Successfully Verified 🎉</h1>
+
+    <p>Hi {{.name}},</p>
+
+    <p>
+        Your email address has been successfully verified.
+        Your account is now active and ready to use.
+    </p>
+
+    <p>
+        Thank you for joining us. We're excited to have you onboard!
+    </p>
+
+    <div class="btn-wrapper">
+        <a href="{{.login_url}}" class="btn">Continue to Login</a>
+    </div>
+
+    <hr class="divider">
+
+    <p style="font-size: 13px; color: #a1a1aa;">
+        If you did not perform this verification, please contact support immediately.
+    </p>
+{{end}}

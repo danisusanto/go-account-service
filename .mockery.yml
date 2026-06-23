@@ -1,0 +1,40 @@
+all: false
+dir: 'mocks/{{.SrcPackageName}}'
+filename: '{{.InterfaceName | snakecase}}.go'
+force-file-write: true
+formatter: goimports
+formatter-options:
+  goimports:
+    all-errors: false
+    comments: true
+    format-only: true
+    fragment: false
+    local-prefix: ""
+    tab-indent: true
+    tab-width: 8
+generate: true
+include-auto-generated: false
+log-level: info
+structname: '{{.Mock}}{{.InterfaceName}}'
+pkgname: 'mock{{.SrcPackageName}}'
+recursive: false
+require-template-schema-exists: true
+template: testify
+template-schema: '{{.Template}}.schema.json'
+packages:
+  github.com/dani-susanto/go-account-service/internal/application/usecase:
+    config:
+      all: true
+  github.com/dani-susanto/go-account-service/internal/domain/repository:
+    config:
+      all: true
+  github.com/dani-susanto/go-account-service/internal/domain/event:
+    config:
+      all: true
+  github.com/dani-susanto/go-account-service/internal/domain/notification/email:
+    config:
+      all: true
+  github.com/dani-susanto/go-common:
+    config:
+      all: true
+      recursive: true

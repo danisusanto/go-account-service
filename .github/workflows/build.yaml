@@ -1,0 +1,39 @@
+# .github/workflows/build.yml
+name: Build and Push Image
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+      alias:
+        type: string
+        required: true
+    secrets:
+      token:
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v6.0.3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.token }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: |
+            ghcr.io/dani-susanto/go-account-service:${{ inputs.tag }}
+            ghcr.io/dani-susanto/go-account-service:${{ inputs.alias }}

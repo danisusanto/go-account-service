@@ -1,0 +1,28 @@
+{{template "layout" .}}
+
+{{define "content"}}
+    <h1>Verify Your Email Address</h1>
+    <p>Hi {{.name}},</p>
+    <p>
+        Thanks for signing up! Please verify your email address
+        by clicking the button below.
+    </p>
+
+    <div class="btn-wrapper">
+        <a href="{{.verification_url}}" class="btn">Verify Email Address</a>
+    </div>
+
+    <hr class="divider">
+
+    <p>Or copy and paste this link into your browser:</p>
+    <p style="word-break: break-all; font-size: 13px; color: #71717a;">
+        {{.verification_url}}
+    </p>
+
+    <hr class="divider">
+
+    <p style="font-size: 13px; color: #a1a1aa;">
+        This link will expire in <strong>{{.expired_in}}</strong> minutes.
+        If you did not create an account, you can safely ignore this email.
+    </p>
+{{end}}

@@ -16,6 +16,7 @@ jobs:
     uses: ./.github/workflows/test.yaml
 
   version:
+    needs: test
     uses: ./.github/workflows/versioning.yaml
     with:
       suffix: ${{ github.ref_name == 'dev' && '-dev' || '' }}

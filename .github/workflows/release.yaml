@@ -12,6 +12,9 @@ permissions:
   packages: write
 
 jobs:
+  test:
+    uses: ./.github/workflows/test.yaml
+
   version:
     uses: ./.github/workflows/versioning.yaml
     with:

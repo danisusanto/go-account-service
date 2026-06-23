@@ -1,4 +1,4 @@
-# .github/workflows/release.yml
+# .github/workflows/release.yaml
 name: Release
 
 on:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   version:
-    uses: ./.github/workflows/versioning.yml
+    uses: ./.github/workflows/versioning.yaml
     with:
       suffix: ${{ github.ref_name == 'main' && '' || format('-{0}', github.ref_name) }}
     secrets:
@@ -18,7 +18,7 @@ jobs:
   build:
     needs: version
     if: needs.version.outputs.bumped == 'true'
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build.yaml
     with:
       tag: ${{ needs.version.outputs.new_tag }}
       alias: ${{ github.ref_name == 'main' && 'latest' || github.ref_name }}

@@ -1,4 +1,4 @@
-# .github/workflows/versioning.yml
+# .github/workflows/versioning.yaml
 name: Versioning
 
 on:

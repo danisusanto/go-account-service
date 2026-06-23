@@ -115,8 +115,27 @@ mock:
 	$(COMPOSE) run --rm mockery
 
 # ====== TEST ======
+# ====== TEST ======
 test:
-	$(COMPOSE) run --rm app go test ./internal/application/... ./internal/handler/... ./internal/infrastructure/cache/... ./internal/infrastructure/database/...
+	go test \
+		./internal/application/... \
+		./internal/handler/... \
+		./internal/infrastructure/cache/... \
+		./internal/infrastructure/database/...
+
+test-v:
+	go test -v \
+		./internal/application/... \
+		./internal/handler/... \
+		./internal/infrastructure/cache/... \
+		./internal/infrastructure/database/...
+
+test-cover:
+	go test -cover \
+		./internal/application/... \
+		./internal/handler/... \
+		./internal/infrastructure/cache/... \
+		./internal/infrastructure/database/...
 
 
 # ====== IGNORE ======

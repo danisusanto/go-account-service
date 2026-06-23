@@ -13,9 +13,11 @@ permissions:
 
 jobs:
   test:
+    name: Quality Checks
     uses: ./.github/workflows/test.yaml
 
   version:
+    name: Release Management
     needs: test
     uses: ./.github/workflows/versioning.yaml
     with:
@@ -24,6 +26,7 @@ jobs:
       token: ${{ secrets.GITHUB_TOKEN }}
 
   build:
+    name: Build & Publish
     needs: version
     if: needs.version.outputs.bumped == 'true'
     uses: ./.github/workflows/build.yaml

@@ -1,0 +1,40 @@
+services:
+  app:
+    image: ghcr.io/dani-susanto/go-account-service:${APP_IMAGE_TAG}
+    container_name: go-account-service-production-app
+    env_file:
+      - .env.production
+    ports:
+      - 8003:8001
+    command: "/usr/local/bin/app"
+    volumes:
+      - .env.production:/.env.production
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8001"]
+    networks:
+      - infrastructure-production-network
+
+  worker:
+    image: ghcr.io/dani-susanto/go-account-service:${APP_IMAGE_TAG}
+    container_name: go-account-service-production-worker
+    env_file:
+      - .env.production
+    command: "/usr/local/bin/worker"
+    volumes:
+      - .env.production:/.env.production
+    networks:
+      - infrastructure-production-network
+
+  migrate:
+    image: migrate/migrate
+    env_file:
+      - .env.production
+    volumes:
+      - ./migrations:/migrations
+    entrypoint: ["migrate"]
+    networks:
+      - infrastructure-production-network
+
+networks:
+  infrastructure-production-network:
+    external: true

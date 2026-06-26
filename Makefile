@@ -22,7 +22,7 @@ build-prod:
 
 # ====== START ======
 start:
-	$(COMPOSE) up -d --build
+	$(COMPOSE) up -d
 	$(MAKE) log
 
 start-local:

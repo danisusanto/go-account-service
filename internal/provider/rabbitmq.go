@@ -24,6 +24,7 @@ func SetupRabbitMQ(env env.Env) (*amqp.Channel, error) {
 		env.Get("RABBITMQ_PASSWORD"),
 		env.Get("RABBITMQ_HOST"),
 		env.Get("RABBITMQ_PORT"),
+		env.Get("APP_ENV"),
 	)
 	if err != nil {
 		return nil, err

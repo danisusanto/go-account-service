@@ -16,7 +16,7 @@ require (
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/XSAM/otelsql v0.42.0 // indirect
-	github.com/dani-susanto/go-common v1.1.0
+	github.com/dani-susanto/go-common v1.1.1
 	github.com/go-redis/redismock/v9 v9.2.0
 	github.com/rabbitmq/amqp091-go v1.12.0
 	github.com/redis/go-redis/v9 v9.20.1

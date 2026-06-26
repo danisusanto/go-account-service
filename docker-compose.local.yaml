@@ -3,263 +3,35 @@ services:
     build:
       dockerfile: Dockerfile.local
       context: .
-    image: ghcr.io/dani-susanto/go-account-service:local.latest
+    image: ghcr.io/dani-susanto/go-account-service
+    pull_policy: never
     container_name: go-account-service-local-app
     env_file:
       - .env.local
-    environment:
-      APP_ENV: local
     ports:
       - 8001:8001
     command: ["go", "run", "cmd/http/main.go"]
     volumes:
       - ./:/app
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "8001"]
+    networks:
+      - infrastructure-local-network
 
   worker:
     build:
       dockerfile: Dockerfile.local
       context: .
-    image: ghcr.io/dani-susanto/go-account-service:local.latest
+    image: ghcr.io/dani-susanto/go-account-service
+    pull_policy: never
     container_name: go-account-service-local-worker
     env_file:
       - .env.local
-    environment:
-      APP_ENV: local
     command: ["go", "run", "cmd/worker/main.go"]
     volumes:
       - ./:/app
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-  db:
-    image: postgres:18-alpine
-    container_name: go-account-service-local-db
-    env_file:
-      - .env.local
-    environment:
-      APP_ENV: local
-      POSTGRES_DB: ${DB_DATABASE}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - local-db-volume:/var/lib/postgresql
-      - ./docker/postgres/master/postgresql.conf:/etc/postgresql/postgresql.conf
-      - ./docker/postgres/master/pg_hba.conf:/etc/postgresql/pg_hba.conf
-      - ./docker/postgres/master/setup-replica.sh:/docker-entrypoint-initdb.d/setup-replica.sh
-    ports:
-      - 5432:5432
-    command: >
-      postgres
-        -c config_file=/etc/postgresql/postgresql.conf
-        -c hba_file=/etc/postgresql/pg_hba.conf
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-
-  # db-slave:
-  #   image: postgres:18-alpine
-  #   container_name: go-account-service-local-db-slave
-  #   env_file:
-  #     - .env.local
-  #   environment:
-  #     APP_ENV: local
-  #     POSTGRES_DB: ${DB_DATABASE}
-  #     POSTGRES_USER: ${DB_USERNAME}
-  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
-  #   volumes:
-  #     - local-db-slave-volume:/var/lib/postgresql
-  #     - ./docker/postgres/slave/postgresql.conf:/etc/postgresql/postgresql.conf
-  #     - ./docker/postgres/slave/setup-replica.sh:/setup-replica.sh
-  #   ports:
-  #     - 5433:5432
-  #   depends_on:
-  #     - db
-  #   entrypoint: ["/bin/sh", "/setup-replica.sh"]
-  #   command: postgres -c config_file=/etc/postgresql/postgresql.conf
-  #   extra_hosts:
-  #     - "host.docker.internal:host-gateway"
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}"]
-  #     interval: 5s
-  #     timeout: 3s
-  #     retries: 5
-
-  rabbitmq:
-    image: rabbitmq:4-management-alpine
-    container_name: go-account-service-local-rabbitmq
-    env_file:
-      - .env.local
-    environment:
-      APP_ENV: local
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-    ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - local-rabbitmq-volume:/var/lib/rabbitmq
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  redis:
-    image: redis:8-alpine
-    container_name: go-account-service-local-redis
-    command: redis-server /usr/local/etc/redis/redis.conf
-    volumes:
-      - local-redis-volume:/data
-      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-
-  redis-insight:
-    image: redis/redisinsight:latest
-    container_name: go-account-service-local-redis-insight
-    ports:
-      - 5540:5540
-    volumes:
-      - local-redis-insight-volume:/data
-    depends_on:
-      - redis
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5540"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-
-  otel-collector:
-    image: otel/opentelemetry-collector
-    container_name: go-account-service-local-otel-collector
-    volumes:
-      - ./docker/otel/collector-config.yaml:/etc/otelcol/config.yaml
-    depends_on:
-      - loki
-
-  tempo:
-    image: grafana/tempo:latest
-    container_name: go-account-service-local-tempo
-    command: ["-config.file=/etc/tempo.yaml"]
-    volumes:
-      - ./docker/grafana/tempo/default.yaml:/etc/tempo.yaml
-      - local-tempo-volume:/var/tempo
-
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: go-account-service-local-prometheus
-    ports:
-      - 9090:9090
-    volumes:
-      - ./docker/grafana/prometheus/default.yaml:/etc/prometheus/prometheus.yml
-      - local-prometheus-volume:/prometheus
-
-  loki:
-    image: grafana/loki:3.7
-    container_name: go-account-service-local-loki
-    ports:
-      - 3100:3100
-    command: -config.file=/etc/loki/local-config.yaml
-    volumes:
-      - ./docker/grafana/loki/default.yaml:/etc/loki/local-config.yaml
-      - local-loki-volume:/loki
-    healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:3100/ready || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 20s
-
-  promtail:
-    image: grafana/promtail:latest
-    container_name: go-account-service-local-promtail
-    volumes:
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker/grafana/promtail/default.yaml:/etc/promtail/config.yaml
-    command: -config.file=/etc/promtail/config.yaml
-
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: go-account-service-local-node-exporter
-    pid: host
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--path.rootfs=/rootfs'
-      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.49.1
-    container_name: go-account-service-local-cadvisor
-    privileged: true
-    command:
-      - '--docker_only=true'
-      - '--store_container_labels=true'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker:/var/lib/docker:ro
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-  grafana:
-    image: grafana/grafana:latest
-    container_name: go-account-service-local-grafana
-    ports:
-      - 3000:3000
-    volumes:
-      - ./docker/grafana:/etc/grafana/provisioning
-      - local-grafana-volume:/var/lib/grafana
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    depends_on:
-      - tempo
-      - loki
-      - prometheus
-
-  adminer:
-    image: adminer:latest
-    container_name: go-account-service-local-adminer
-    ports:
-      - 8080:8080
-    depends_on:
-      - db
-    environment:
-      APP_ENV: local
-      ADMINER_DEFAULT_SERVER: db
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
+    networks:
+      - infrastructure-local-network
 
   mockery:
     image: vektra/mockery:latest
@@ -271,22 +43,12 @@ services:
     image: migrate/migrate
     env_file:
       - .env.local
-    environment:
-      APP_ENV: local
-    depends_on:
-      - db
     volumes:
       - ./migrations:/migrations
     entrypoint: ["migrate"]
+    networks:
+      - infrastructure-local-network
 
-volumes:
-  local-db-volume:
-  local-db-slave-volume:
-  local-rabbitmq-volume:
-  local-redis-volume:
-  local-redis-insight-volume:
-  local-grafana-volume:
-  local-tempo-volume:
-  local-prometheus-volume:
-  local-loki-volume:
-
+networks:
+  infrastructure-local-network:
+    external: true

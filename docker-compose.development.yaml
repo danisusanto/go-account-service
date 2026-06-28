@@ -25,16 +25,6 @@ services:
     networks:
       - infrastructure-development-network
 
-  migrate:
-    image: migrate/migrate
-    env_file:
-      - .env.development
-    volumes:
-      - ./migrations:/migrations
-    entrypoint: ["migrate"]
-    networks:
-      - infrastructure-development-network
-
 networks:
   infrastructure-development-network:
     external: true

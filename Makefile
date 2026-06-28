@@ -1,121 +1,256 @@
-# ====== GLOBAL ======
-IMAGE_NAME=ghcr.io/dani-susanto/go-account-service
-
-ENV ?= local
+ENV=
 ENV_FILE=.env.$(ENV)
+-include $(ENV_FILE)
 COMPOSE_FILE=docker-compose.$(ENV).yaml
-
-include $(ENV_FILE)
-export
-
-DB_URL=postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=disable
-
-# docker compose wrapper
 COMPOSE=docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE)
 
-# ====== BUILD ======
-build:
-	docker build -t ${IMAGE_NAME} .
+IMAGE_NAME=ghcr.io/dani-susanto/go-account-service
+IMAGE_TAG=
 
-build-prod:
-	docker build -t ${IMAGE_NAME}:main.latest .
+DB_URL=postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=disable
+MIGRATION_NAME=
+MIGRATION_STEP=
+MIGRATE=docker run --rm -v $(PWD)/migrations:/migrations --network infrastructure-$(ENV)-network migrate/migrate -path /migrations -database $(DB_URL)
 
-# ====== START ======
-start:
+# ===============================
+# 🛡️ GUARD
+# ===============================
+guard-env:
+	@test -n "$(ENV)" || (echo "❌ ENV is required. Usage: make <target> ENV=local|development|production" && exit 1)
+	@echo "$(ENV)" | grep -qE "^(local|development|production)$$" || (echo "❌ ENV invalid. Must be: local, development, or production" && exit 1)
+
+guard-tag:
+	@test -n "$(IMAGE_TAG)" || (echo "❌ IMAGE_TAG is required. Usage: make <target> IMAGE_TAG=v1.0.0" && exit 1)
+
+guard-migration-name:
+	@test -n "$(MIGRATION_NAME)" || (echo "❌ MIGRATION_NAME is required. Usage: make <target> MIGRATION_NAME=create_users_table" && exit 1)
+
+guard-migration-step:
+	@test -n "$(MIGRATION_STEP)" || (echo "❌ MIGRATION_STEP is required. Usage: make <target> MIGRATION_STEP=1" && exit 1)
+
+
+# ===============================
+# 🟢 START
+# ===============================
+start: guard-env
+	@echo "🚀 Starting $(ENV) environment..."
 	$(COMPOSE) up -d
-	$(MAKE) log
+
+start-build: guard-env
+	@echo "🚀 Starting $(ENV) environment with build..."
+	$(COMPOSE) up -d --build
 
 start-local:
 	$(MAKE) start ENV=local
+	$(MAKE) log-app-local
+
+start-local-build:
+	$(MAKE) start-build ENV=local
+	$(MAKE) log-app-local
 
 start-dev:
 	$(MAKE) start ENV=development
+	$(MAKE) log-app-dev
+
+start-dev-build:
+	$(MAKE) start-build ENV=development
+	$(MAKE) log-app-dev
 
 start-prod:
 	$(MAKE) start ENV=production
+	$(MAKE) log-app-prod
 
-# ====== STOP ======
-stop:
+start-prod-build:
+	$(MAKE) start-build ENV=production
+	$(MAKE) log-app-prod
+
+
+# ===============================
+# 🔴 STOP
+# ===============================
+stop: guard-env
+	@echo "🛑 Stopping $(ENV) environment..."
 	$(COMPOSE) down
 
-stop-v:
+stop-v: guard-env
+	@echo "🛑 Stopping $(ENV) environment and removing volumes..."
 	$(COMPOSE) down -v
 
 stop-local:
 	$(MAKE) stop ENV=local
 
+stop-local-v:
+	$(MAKE) stop-v ENV=local
+
 stop-dev:
 	$(MAKE) stop ENV=development
+
+stop-dev-v:
+	$(MAKE) stop-v ENV=development
 
 stop-prod:
 	$(MAKE) stop ENV=production
 
-# ====== RESTART ======
-restart:
-	$(MAKE) stop ENV=$(ENV)
-	$(MAKE) start ENV=$(ENV)
+stop-prod-v:
+	$(MAKE) stop-v ENV=production
 
-# ====== LOG ======
-log:
+
+# ===============================
+# 🔁 RESTART
+# ===============================
+restart: guard-env
+	@echo "🔁 Restarting $(ENV) environment..."
+	$(COMPOSE) restart app worker
+
+restart-local:
+	$(MAKE) restart ENV=local
+	$(MAKE) log-app-local
+
+restart-dev:
+	$(MAKE) restart ENV=development
+	$(MAKE) log-app-dev
+
+restart-prod:
+	$(MAKE) restart ENV=production
+	$(MAKE) log-app-prod
+
+
+# ===============================
+# 📋 LOG
+# ===============================
+log-app: guard-env
 	$(COMPOSE) logs -f app
 
-log-worker:
+log-worker: guard-env
 	$(COMPOSE) logs -f worker
 
-# ====== RELOAD ======
-reload:
-	$(COMPOSE) restart worker
-	$(COMPOSE) restart app
-	$(MAKE) log
+log-app-local:
+	$(MAKE) log-app ENV=local
 
-reload-worker:
-	$(COMPOSE) restart worker
-	$(MAKE) log-worker
+log-app-dev:
+	$(MAKE) log-app ENV=development
+
+log-app-prod:
+	$(MAKE) log-app ENV=production
+
+log-worker-local:
+	$(MAKE) log-worker ENV=local
+
+log-worker-dev:
+	$(MAKE) log-worker ENV=development
+
+log-worker-prod:
+	$(MAKE) log-worker ENV=production
 
 
-# ====== GO ======
-get:
-	$(COMPOSE) run --rm app go get $(filter-out $@,$(MAKECMDGOALS))
+# ===============================
+# 🔨 BUILD
+# ===============================
+build: guard-env
+	@echo "🔨 Building $(IMAGE_NAME):$(IMAGE_TAG)..."
+	docker build -t $(IMAGE_NAME):$(IMAGE_TAG) .
 
-tidy:
-	$(COMPOSE) run --rm app go mod tidy
+build-local:
+	$(MAKE) build ENV=local IMAGE_TAG=latest
 
-run:
-	$(COMPOSE) run --rm app go run $(filter-out $@,$(MAKECMDGOALS))
+build-dev: guard-tag
+	$(MAKE) build ENV=development IMAGE_TAG=$(IMAGE_TAG)
 
-# ====== MIGRATION ======
-migration:
-	$(COMPOSE) run --rm migrate create -ext sql -dir /migrations $(filter-out $@,$(MAKECMDGOALS))
+build-prod: guard-tag
+	$(MAKE) build ENV=production IMAGE_TAG=$(IMAGE_TAG)
 
-migrate:
-	$(COMPOSE) run --rm migrate -path /migrations -database "$(DB_URL)" up
 
-migrate-rollback:
-	$(COMPOSE) run --rm migrate -path /migrations -database "$(DB_URL)" down $(filter-out $@,$(MAKECMDGOALS))
+# ===============================
+# 🗄️ MIGRATION
+# ===============================
+migration: guard-migration-name
+	docker run --rm -v $(PWD)/migrations:/migrations migrate/migrate create -ext sql -dir /migrations $(MIGRATION_NAME)
 
-migrate-drop:
-	$(COMPOSE) run --rm migrate -path /migrations -database "$(DB_URL)" down --all
+migrate: guard-env
+	$(MIGRATE) up
 
-migrate-fresh:
+migrate-rollback: guard-env guard-migration-step
+	$(MIGRATE) down $(MIGRATION_STEP)
+
+migrate-drop: guard-env
+	$(MIGRATE) down --all
+
+migrate-fresh: guard-env
 	$(MAKE) migrate-drop ENV=$(ENV)
 	$(MAKE) migrate ENV=$(ENV)
 	$(MAKE) seed ENV=$(ENV)
 
-# ====== SEED ======
-seed:
+migrate-local:
+	$(MAKE) migrate ENV=local
+
+migrate-rollback-local: guard-migration-step
+	$(MAKE) migrate-rollback ENV=local MIGRATION_STEP=$(MIGRATION_STEP)
+
+migrate-drop-local:
+	$(MAKE) migrate-drop ENV=local
+
+migrate-fresh-local:
+	$(MAKE) migrate-fresh ENV=local
+
+migrate-dev:
+	$(MAKE) migrate ENV=development
+
+migrate-rollback-dev: guard-migration-step
+	$(MAKE) migrate-rollback ENV=development MIGRATION_STEP=$(MIGRATION_STEP)
+
+migrate-drop-dev:
+	$(MAKE) migrate-drop ENV=development
+
+migrate-fresh-dev:
+	$(MAKE) migrate-fresh ENV=development
+
+migrate-prod:
+	$(MAKE) migrate ENV=production
+
+migrate-rollback-prod: guard-migration-step
+	$(MAKE) migrate-rollback ENV=production MIGRATION_STEP=$(MIGRATION_STEP)
+
+migrate-drop-prod:
+	$(MAKE) migrate-drop ENV=production
+
+migrate-fresh-prod:
+	$(MAKE) migrate-fresh ENV=production
+
+
+# ===============================
+# 🌱 SEED
+# ===============================
+seed: guard-env
 	$(COMPOSE) run --rm app go run cmd/seed/main.go
 
-# ====== SWAGGER ======
+seed-local:
+	$(MAKE) seed ENV=local
+
+seed-dev:
+	$(MAKE) seed ENV=development
+
+seed-prod:
+	$(MAKE) seed ENV=production
+
+
+# ===============================
+# 📝 SWAGGER
+# ===============================
 swag:
 	$(COMPOSE) run --rm app sh -c "swag init -g cmd/http/main.go -o docs --parseDependency && swag fmt"
 
-# ====== MOCK ======
+
+# ===============================
+# 🧪 MOCK
+# ===============================
 mock:
 	rm -rf ./mocks
-	$(COMPOSE) run --rm mockery
+	docker run --rm -v $(PWD):/src -w /src vektra/mockery
 
-# ====== TEST ======
-# ====== TEST ======
+
+# ===============================
+# ✅ TEST
+# ===============================
 test:
 	go test \
 		./internal/application/... \
@@ -136,8 +271,3 @@ test-cover:
 		./internal/handler/... \
 		./internal/infrastructure/cache/... \
 		./internal/infrastructure/database/...
-
-
-# ====== IGNORE ======
-%:
-	@:

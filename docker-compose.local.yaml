@@ -33,22 +33,6 @@ services:
     networks:
       - infrastructure-local-network
 
-  mockery:
-    image: vektra/mockery:latest
-    volumes:
-      - ./:/src
-    working_dir: /src
-
-  migrate:
-    image: migrate/migrate
-    env_file:
-      - .env.local
-    volumes:
-      - ./migrations:/migrations
-    entrypoint: ["migrate"]
-    networks:
-      - infrastructure-local-network
-
 networks:
   infrastructure-local-network:
     external: true

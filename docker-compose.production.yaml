@@ -25,16 +25,6 @@ services:
     networks:
       - infrastructure-production-network
 
-  migrate:
-    image: migrate/migrate
-    env_file:
-      - .env.production
-    volumes:
-      - ./migrations:/migrations
-    entrypoint: ["migrate"]
-    networks:
-      - infrastructure-production-network
-
 networks:
   infrastructure-production-network:
     external: true

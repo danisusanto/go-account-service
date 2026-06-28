@@ -121,45 +121,110 @@ Included services:
 
 ```sh
 make start-local
+make start-local-build
+```
+
+For other environments:
+
+```sh
+make start-dev
+make start-dev-build
+make start-prod
+make start-prod-build
 ```
 
 ### Stop
 
 ```sh
 make stop-local
+make stop-local-v
+```
+
+For other environments:
+
+```sh
+make stop-dev
+make stop-dev-v
+make stop-prod
+make stop-prod-v
+```
+
+### Restart
+
+```sh
+make restart-local
+make restart-dev
+make restart-prod
 ```
 
 ### Logs
 
 ```sh
-make log
-make log-worker
+make log-app-local
+make log-worker-local
+make log-app-dev
+make log-worker-dev
+make log-app-prod
+make log-worker-prod
 ```
 
-### Reload
+## Make Targets
+
+Most environment-aware targets require `ENV=local`, `ENV=development`, or `ENV=production`. The Makefile also provides shortcut targets for common environment-specific commands.
+
+Start and stop:
 
 ```sh
-make reload
-make reload-worker
+make start ENV=local
+make start-build ENV=local
+make stop ENV=local
+make stop-v ENV=local
+make restart ENV=local
 ```
 
-## Common Commands
+Build images:
 
 ```sh
-make migrate
-make migrate-rollback 1
-make migrate-fresh
-make seed
+make build-local
+make build-dev IMAGE_TAG=v1.0.0
+make build-prod IMAGE_TAG=v1.0.0
+```
+
+Migrations:
+
+```sh
+make migration MIGRATION_NAME=create_users_table
+make migrate-local
+make migrate-rollback-local MIGRATION_STEP=1
+make migrate-drop-local
+make migrate-fresh-local
+```
+
+Development and production migration shortcuts:
+
+```sh
+make migrate-dev
+make migrate-rollback-dev MIGRATION_STEP=1
+make migrate-fresh-dev
+make migrate-prod
+make migrate-rollback-prod MIGRATION_STEP=1
+make migrate-fresh-prod
+```
+
+Seeders:
+
+```sh
+make seed-local
+make seed-dev
+make seed-prod
+```
+
+Generated files and tests:
+
+```sh
 make swag
 make mock
 make test
-make tidy
-```
-
-To run an arbitrary Go command inside the local app container:
-
-```sh
-make run cmd/http/main.go
 ```
 
 ## Environment

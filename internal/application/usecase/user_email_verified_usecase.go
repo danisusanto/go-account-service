@@ -52,7 +52,7 @@ func (u *userEmailVerifiedUsecase) Exec(ctx context.Context, i *event.UserEmailV
 	}
 
 	if user.IsEmailVerified() {
-		u.log.Info("sending email verified", user.Email)
+		u.log.Info("sending email verified", "email", user.Email)
 		if err := u.email.Send(
 			ctx,
 			email.EmailVerifiedSubject,

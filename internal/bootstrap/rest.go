@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -34,14 +35,14 @@ func NewRestServer() (*restServer, error) {
 	// Setup Environment
 	env, err := provider.SetupEnv()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("ENV %s", err)
 	}
 
 	// Setup Telemetry
 	ctx := context.Background()
 	tracer, err := provider.SetupTelemetry(ctx, env)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Telemetry %s", err)
 	}
 
 	// Setup Log
@@ -53,7 +54,7 @@ func NewRestServer() (*restServer, error) {
 	// Setup Messaging Infrastructure (RabbitMQ)
 	messaging, err := provider.SetupRabbitMQ(env)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("RabbitMQ %s", err)
 	}
 
 	// Setup Database Infrastructure (Postgres)
@@ -65,7 +66,7 @@ func NewRestServer() (*restServer, error) {
 		env.Get("DB_DATABASE"),
 	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Postgres %s", err)
 	}
 
 	// Setup Cache Infrastructure (Redis)
@@ -77,7 +78,7 @@ func NewRestServer() (*restServer, error) {
 		env.Get("REDIS_DATABASE"),
 	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Redis %s", err)
 	}
 
 	// Setup Domain Event Implementation (RabbitMQ)

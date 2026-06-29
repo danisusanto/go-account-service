@@ -1,6 +1,8 @@
 package bootstrap
 
 import (
+	"fmt"
+
 	"github.com/dani-susanto/go-account-service/internal/handler/event"
 	"github.com/dani-susanto/go-account-service/internal/infrastructure/messaging/rabbitmq"
 	"github.com/dani-susanto/go-account-service/internal/provider"
@@ -23,7 +25,7 @@ func NewEventServer() (*eventServer, error) {
 	// Setup Environment
 	env, err := provider.SetupEnv()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("ENV %s", err)
 	}
 
 	// Setup Log
@@ -35,7 +37,7 @@ func NewEventServer() (*eventServer, error) {
 	// Setup Messaging Infrastructure (RabbitMQ)
 	messaging, err := provider.SetupRabbitMQ(env)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("RabbitMQ %s", err)
 	}
 
 	// Setup Database Infrastructure (Postgres)
@@ -47,7 +49,7 @@ func NewEventServer() (*eventServer, error) {
 		env.Get("DB_DATABASE"),
 	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Postgres %s", err)
 	}
 
 	// Setup Cache Infrastructure (Redis)
@@ -59,7 +61,7 @@ func NewEventServer() (*eventServer, error) {
 		env.Get("REDIS_DATABASE"),
 	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Redis %s", err)
 	}
 
 	// Setup Domain Repository Implementation
@@ -71,7 +73,7 @@ func NewEventServer() (*eventServer, error) {
 	// Setup Email Provider
 	email, err := provider.SetupSMTP(env)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("STMP %s", err)
 	}
 
 	// Setup Application Usecase

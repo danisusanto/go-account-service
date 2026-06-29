@@ -17,6 +17,8 @@ github.com/dani-susanto/go-common v1.1.0 h1:Yf9UNvgc166Njv19g95Ub743iIQd+7W2fcvz
 github.com/dani-susanto/go-common v1.1.0/go.mod h1:9UK3FNIjN3qAeEYqk/Hs8QyhIS/xJgPbJpbY4anQgw8=
 github.com/dani-susanto/go-common v1.1.1 h1:g5U3kYibFHdzJw650l+4YdKntMfY3z3n3MBUtzVi1iU=
 github.com/dani-susanto/go-common v1.1.1/go.mod h1:9UK3FNIjN3qAeEYqk/Hs8QyhIS/xJgPbJpbY4anQgw8=
+github.com/dani-susanto/go-common v1.2.0 h1:oQ9ETgEhaLyL5x0brd3+s5WBt4UiZPtM2VOv7bFe5SY=
+github.com/dani-susanto/go-common v1.2.0/go.mod h1:9UK3FNIjN3qAeEYqk/Hs8QyhIS/xJgPbJpbY4anQgw8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

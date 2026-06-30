@@ -148,6 +148,7 @@ func SetupUsecase(
 	)
 
 	changeEmailVerificationRequest := usecase.NewChangeEmailRequestUsecase(
+		repository.userRepository,
 		verificationRequest,
 		env,
 		log,

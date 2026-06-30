@@ -55,7 +55,7 @@ func (u *changeEmailNotifyUsecase) Exec(ctx context.Context, i *ChangeEmailNotif
 	); err != nil {
 		return exception.Throw(exception.INTERNAL_SERVER_ERROR, "failed to send change email token")
 	}
-	u.log.Info("change email token sent to", "email", i.Email)
+	u.log.Info("change email token sent", "email", i.Email)
 
 	return nil
 }

@@ -4,7 +4,7 @@ ENV_FILE=.env.$(ENV)
 COMPOSE_FILE=docker-compose.$(ENV).yaml
 COMPOSE=docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE)
 
-IMAGE_NAME=ghcr.io/dani-susanto/go-account-service
+IMAGE_NAME=ghcr.io/danisusanto/go-account-service
 IMAGE_TAG=
 
 DB_URL=postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DATABASE)?sslmode=disable

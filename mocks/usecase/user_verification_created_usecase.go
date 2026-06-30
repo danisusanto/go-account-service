@@ -7,7 +7,7 @@ package mockusecase
 import (
 	"context"
 
-	"github.com/dani-susanto/go-account-service/internal/domain/event"
+	"github.com/danisusanto/go-account-service/internal/domain/event"
 	mock "github.com/stretchr/testify/mock"
 )
 

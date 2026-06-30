@@ -3,7 +3,7 @@ package seeders
 import (
 	"database/sql"
 
-	"github.com/dani-susanto/go-common/hash"
+	"github.com/danisusanto/go-common/hash"
 )
 
 type UserSeeder struct {

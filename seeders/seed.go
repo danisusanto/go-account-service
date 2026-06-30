@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/dani-susanto/go-common/hash"
+	"github.com/danisusanto/go-common/hash"
 )
 
 type Seeder interface {

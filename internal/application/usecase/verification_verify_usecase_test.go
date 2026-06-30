@@ -6,14 +6,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dani-susanto/go-account-service/internal/application/usecase"
-	"github.com/dani-susanto/go-account-service/internal/domain/entity"
-	"github.com/dani-susanto/go-account-service/internal/domain/repository"
-	mockenv "github.com/dani-susanto/go-account-service/mocks/env"
-	mockhash "github.com/dani-susanto/go-account-service/mocks/hash"
-	mocklog "github.com/dani-susanto/go-account-service/mocks/log"
-	mockrepository "github.com/dani-susanto/go-account-service/mocks/repository"
-	"github.com/dani-susanto/go-common/exception"
+	"github.com/danisusanto/go-account-service/internal/application/usecase"
+	"github.com/danisusanto/go-account-service/internal/domain/entity"
+	"github.com/danisusanto/go-account-service/internal/domain/repository"
+	mockenv "github.com/danisusanto/go-account-service/mocks/env"
+	mockhash "github.com/danisusanto/go-account-service/mocks/hash"
+	mocklog "github.com/danisusanto/go-account-service/mocks/log"
+	mockrepository "github.com/danisusanto/go-account-service/mocks/repository"
+	"github.com/danisusanto/go-common/exception"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -22,19 +22,19 @@ require-template-schema-exists: true
 template: testify
 template-schema: '{{.Template}}.schema.json'
 packages:
-  github.com/dani-susanto/go-account-service/internal/application/usecase:
+  github.com/danisusanto/go-account-service/internal/application/usecase:
     config:
       all: true
-  github.com/dani-susanto/go-account-service/internal/domain/repository:
+  github.com/danisusanto/go-account-service/internal/domain/repository:
     config:
       all: true
-  github.com/dani-susanto/go-account-service/internal/domain/event:
+  github.com/danisusanto/go-account-service/internal/domain/event:
     config:
       all: true
-  github.com/dani-susanto/go-account-service/internal/domain/notification/email:
+  github.com/danisusanto/go-account-service/internal/domain/notification/email:
     config:
       all: true
-  github.com/dani-susanto/go-common:
+  github.com/danisusanto/go-common:
     config:
       all: true
       recursive: true

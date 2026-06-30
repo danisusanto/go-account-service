@@ -4,8 +4,8 @@ import (
 	"context"
 	"strconv"
 
-	"github.com/dani-susanto/go-common/env"
-	"github.com/dani-susanto/go-common/telemetry"
+	"github.com/danisusanto/go-common/env"
+	"github.com/danisusanto/go-common/telemetry"
 	"go.opentelemetry.io/otel/trace"
 )
 

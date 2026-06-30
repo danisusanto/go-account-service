@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/dani-susanto/go-account-service/internal/provider"
-	"github.com/dani-susanto/go-account-service/seeders"
-	"github.com/dani-susanto/go-common/log"
-	"github.com/dani-susanto/go-common/postgres"
+	"github.com/danisusanto/go-account-service/internal/provider"
+	"github.com/danisusanto/go-account-service/seeders"
+	"github.com/danisusanto/go-common/log"
+	"github.com/danisusanto/go-common/postgres"
 )
 
 func main() {

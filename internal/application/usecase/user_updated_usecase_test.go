@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/dani-susanto/go-account-service/internal/application/usecase"
-	"github.com/dani-susanto/go-account-service/internal/domain/event"
-	mocklog "github.com/dani-susanto/go-account-service/mocks/log"
-	mockrepository "github.com/dani-susanto/go-account-service/mocks/repository"
+	"github.com/danisusanto/go-account-service/internal/application/usecase"
+	"github.com/danisusanto/go-account-service/internal/domain/event"
+	mocklog "github.com/danisusanto/go-account-service/mocks/log"
+	mockrepository "github.com/danisusanto/go-account-service/mocks/repository"
 	"github.com/stretchr/testify/assert"
 )
 

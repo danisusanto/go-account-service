@@ -3,7 +3,7 @@ package provider
 import (
 	"os"
 
-	"github.com/dani-susanto/go-common/env"
+	"github.com/danisusanto/go-common/env"
 )
 
 func SetupEnv() (env.Env, error) {

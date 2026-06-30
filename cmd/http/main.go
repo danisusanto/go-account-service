@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/dani-susanto/go-account-service/internal/bootstrap"
+	"github.com/danisusanto/go-account-service/internal/bootstrap"
 )
 
 // @title			Account Service API

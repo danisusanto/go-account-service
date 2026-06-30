@@ -1,9 +1,9 @@
 package provider
 
 import (
-	"github.com/dani-susanto/go-account-service/internal/domain/event"
-	"github.com/dani-susanto/go-common/env"
-	"github.com/dani-susanto/go-common/rabbitmq"
+	"github.com/danisusanto/go-account-service/internal/domain/event"
+	"github.com/danisusanto/go-common/env"
+	"github.com/danisusanto/go-common/rabbitmq"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 

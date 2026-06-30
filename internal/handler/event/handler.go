@@ -3,7 +3,7 @@ package event
 import (
 	"fmt"
 
-	"github.com/dani-susanto/go-account-service/internal/domain/event"
+	"github.com/danisusanto/go-account-service/internal/domain/event"
 )
 
 type Handler struct {

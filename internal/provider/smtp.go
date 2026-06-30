@@ -3,10 +3,10 @@ package provider
 import (
 	"strconv"
 
-	"github.com/dani-susanto/go-account-service/internal/domain/notification/email"
-	"github.com/dani-susanto/go-account-service/internal/infrastructure/notification/email/smtp"
-	"github.com/dani-susanto/go-common/env"
-	commonsmtp "github.com/dani-susanto/go-common/smtp"
+	"github.com/danisusanto/go-account-service/internal/domain/notification/email"
+	"github.com/danisusanto/go-account-service/internal/infrastructure/notification/email/smtp"
+	"github.com/danisusanto/go-common/env"
+	commonsmtp "github.com/danisusanto/go-common/smtp"
 )
 
 func SetupSMTP(env env.Env) (email.Email, error) {

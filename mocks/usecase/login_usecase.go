@@ -7,7 +7,7 @@ package mockusecase
 import (
 	"context"
 
-	"github.com/dani-susanto/go-account-service/internal/application/usecase"
+	"github.com/danisusanto/go-account-service/internal/application/usecase"
 	mock "github.com/stretchr/testify/mock"
 )
 

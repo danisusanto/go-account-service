@@ -351,7 +351,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github_com_dani-susanto_go-account-service_internal_application_usecase.LoginUsecaseOutput"
+                                            "$ref": "#/definitions/github_com_danisusanto_go-account-service_internal_application_usecase.LoginUsecaseOutput"
                                         }
                                     }
                                 }
@@ -421,7 +421,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github_com_dani-susanto_go-account-service_internal_application_usecase.GetUserUsecaseOutput"
+                                            "$ref": "#/definitions/github_com_danisusanto_go-account-service_internal_application_usecase.GetUserUsecaseOutput"
                                         }
                                     }
                                 }
@@ -488,7 +488,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github_com_dani-susanto_go-account-service_internal_application_usecase.UpdateUserUsecaseOutput"
+                                            "$ref": "#/definitions/github_com_danisusanto_go-account-service_internal_application_usecase.UpdateUserUsecaseOutput"
                                         }
                                     }
                                 }
@@ -558,7 +558,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github_com_dani-susanto_go-account-service_internal_application_usecase.RefreshTokenOutput"
+                                            "$ref": "#/definitions/github_com_danisusanto_go-account-service_internal_application_usecase.RefreshTokenOutput"
                                         }
                                     }
                                 }
@@ -622,7 +622,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github_com_dani-susanto_go-account-service_internal_application_usecase.RegisterUsecaseOutput"
+                                            "$ref": "#/definitions/github_com_danisusanto_go-account-service_internal_application_usecase.RegisterUsecaseOutput"
                                         }
                                     }
                                 }
@@ -805,7 +805,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "github_com_dani-susanto_go-account-service_internal_application_usecase.GetUserUsecaseOutput": {
+        "github_com_danisusanto_go-account-service_internal_application_usecase.GetUserUsecaseOutput": {
             "type": "object",
             "properties": {
                 "country_code": {
@@ -833,14 +833,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "role": {
-                    "$ref": "#/definitions/github_com_dani-susanto_go-account-service_internal_domain_entity.Role"
+                    "$ref": "#/definitions/github_com_danisusanto_go-account-service_internal_domain_entity.Role"
                 },
                 "updated_at": {
                     "type": "string"
                 }
             }
         },
-        "github_com_dani-susanto_go-account-service_internal_application_usecase.LoginUsecaseOutput": {
+        "github_com_danisusanto_go-account-service_internal_application_usecase.LoginUsecaseOutput": {
             "type": "object",
             "properties": {
                 "access_token": {
@@ -851,7 +851,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_dani-susanto_go-account-service_internal_application_usecase.RefreshTokenOutput": {
+        "github_com_danisusanto_go-account-service_internal_application_usecase.RefreshTokenOutput": {
             "type": "object",
             "properties": {
                 "access_token": {
@@ -862,7 +862,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_dani-susanto_go-account-service_internal_application_usecase.RegisterUsecaseOutput": {
+        "github_com_danisusanto_go-account-service_internal_application_usecase.RegisterUsecaseOutput": {
             "type": "object",
             "properties": {
                 "access_token": {
@@ -873,7 +873,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_dani-susanto_go-account-service_internal_application_usecase.UpdateUserUsecaseOutput": {
+        "github_com_danisusanto_go-account-service_internal_application_usecase.UpdateUserUsecaseOutput": {
             "type": "object",
             "properties": {
                 "country_code": {
@@ -901,14 +901,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "role": {
-                    "$ref": "#/definitions/github_com_dani-susanto_go-account-service_internal_domain_entity.Role"
+                    "$ref": "#/definitions/github_com_danisusanto_go-account-service_internal_domain_entity.Role"
                 },
                 "updated_at": {
                     "type": "string"
                 }
             }
         },
-        "github_com_dani-susanto_go-account-service_internal_domain_entity.Role": {
+        "github_com_danisusanto_go-account-service_internal_domain_entity.Role": {
             "type": "string",
             "enum": [
                 "ADMIN",

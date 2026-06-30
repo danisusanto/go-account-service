@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/dani-susanto/go-account-service/internal/domain/entity"
-	"github.com/dani-susanto/go-account-service/internal/domain/repository"
-	"github.com/dani-susanto/go-common/log"
-	commonpostgres "github.com/dani-susanto/go-common/postgres"
+	"github.com/danisusanto/go-account-service/internal/domain/entity"
+	"github.com/danisusanto/go-account-service/internal/domain/repository"
+	"github.com/danisusanto/go-common/log"
+	commonpostgres "github.com/danisusanto/go-common/postgres"
 )
 
 type userRepositoryPostgres struct {

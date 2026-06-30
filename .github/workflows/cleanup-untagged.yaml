@@ -1,0 +1,23 @@
+# .github/workflows/cleanup-untagged.yml
+name: Cleanup Untagged Images
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+permissions:
+  packages: write
+  contents: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete untagged container images
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'go-account-service'
+          package-type: 'container'
+          min-versions-to-keep: 0
+          delete-only-untagged-versions: 'true'

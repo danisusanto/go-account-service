@@ -1,11 +1,11 @@
 package rabbitmq
 
 import (
-	domainevent "github.com/dani-susanto/go-account-service/internal/domain/event"
-	"github.com/dani-susanto/go-account-service/internal/handler/event"
-	"github.com/dani-susanto/go-account-service/internal/provider"
-	"github.com/dani-susanto/go-common/json"
-	"github.com/dani-susanto/go-common/log"
+	domainevent "github.com/danisusanto/go-account-service/internal/domain/event"
+	"github.com/danisusanto/go-account-service/internal/handler/event"
+	"github.com/danisusanto/go-account-service/internal/provider"
+	"github.com/danisusanto/go-common/json"
+	"github.com/danisusanto/go-common/log"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 

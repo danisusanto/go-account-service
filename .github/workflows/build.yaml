@@ -45,5 +45,5 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            ghcr.io/dani-susanto/go-account-service:${{ inputs.tag }}
-            ghcr.io/dani-susanto/go-account-service:${{ inputs.alias }}
+            ghcr.io/danisusanto/go-account-service:${{ inputs.tag }}
+            ghcr.io/danisusanto/go-account-service:${{ inputs.alias }}

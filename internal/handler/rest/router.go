@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/dani-susanto/go-account-service/internal/provider"
-	"github.com/dani-susanto/go-common/env"
-	"github.com/dani-susanto/go-common/json"
-	"github.com/dani-susanto/go-common/jwt"
-	"github.com/dani-susanto/go-common/log"
-	commonrest "github.com/dani-susanto/go-common/rest"
-	"github.com/dani-susanto/go-common/validator"
+	"github.com/danisusanto/go-account-service/internal/provider"
+	"github.com/danisusanto/go-common/env"
+	"github.com/danisusanto/go-common/json"
+	"github.com/danisusanto/go-common/jwt"
+	"github.com/danisusanto/go-common/log"
+	commonrest "github.com/danisusanto/go-common/rest"
+	"github.com/danisusanto/go-common/validator"
 )
 
 type handler struct {

@@ -4,12 +4,12 @@ import (
 	"context"
 	"testing"
 
-	"github.com/dani-susanto/go-account-service/internal/application/usecase"
-	"github.com/dani-susanto/go-account-service/internal/domain/entity"
-	mockenv "github.com/dani-susanto/go-account-service/mocks/env"
-	mocklog "github.com/dani-susanto/go-account-service/mocks/log"
-	mockusecase "github.com/dani-susanto/go-account-service/mocks/usecase"
-	"github.com/dani-susanto/go-common/exception"
+	"github.com/danisusanto/go-account-service/internal/application/usecase"
+	"github.com/danisusanto/go-account-service/internal/domain/entity"
+	mockenv "github.com/danisusanto/go-account-service/mocks/env"
+	mocklog "github.com/danisusanto/go-account-service/mocks/log"
+	mockusecase "github.com/danisusanto/go-account-service/mocks/usecase"
+	"github.com/danisusanto/go-common/exception"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

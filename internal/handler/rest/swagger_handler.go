@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"github.com/dani-susanto/go-account-service/docs"
+	"github.com/danisusanto/go-account-service/docs"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 

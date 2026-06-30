@@ -309,7 +309,7 @@ The repository uses GitHub Actions for versioning and image publishing.
 - `versioning.yaml`
   Bumps a semantic version tag from the latest tag using the latest commit message
 - `build.yaml`
-  Builds and pushes Docker images to `ghcr.io/dani-susanto/go-account-service`
+  Builds and pushes Docker images to `ghcr.io/danisusanto/go-account-service`
 
 Commit message rules used by the versioning workflow:
 
@@ -360,4 +360,4 @@ The HTTP service exposes Swagger UI at:
 - The REST server listens on `:8001`.
 - The API base path is `/api/v1`.
 - The worker is required for outbound email workflows to complete.
-- The repository uses `github.com/dani-susanto/go-common` for shared env, JWT, REST, logging, SMTP, PostgreSQL, and Redis helpers.
+- The repository uses `github.com/danisusanto/go-common` for shared env, JWT, REST, logging, SMTP, PostgreSQL, and Redis helpers.

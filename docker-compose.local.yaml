@@ -3,7 +3,7 @@ services:
     build:
       dockerfile: Dockerfile.local
       context: .
-    image: ghcr.io/dani-susanto/go-account-service
+    image: ghcr.io/danisusanto/go-account-service
     pull_policy: never
     container_name: go-account-service-local-app
     env_file:
@@ -22,7 +22,7 @@ services:
     build:
       dockerfile: Dockerfile.local
       context: .
-    image: ghcr.io/dani-susanto/go-account-service
+    image: ghcr.io/danisusanto/go-account-service
     pull_policy: never
     container_name: go-account-service-local-worker
     env_file:

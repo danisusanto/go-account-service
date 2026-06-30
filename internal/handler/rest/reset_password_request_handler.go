@@ -3,8 +3,8 @@ package rest
 import (
 	"net/http"
 
-	"github.com/dani-susanto/go-account-service/internal/application/usecase"
-	"github.com/dani-susanto/go-common/exception"
+	"github.com/danisusanto/go-account-service/internal/application/usecase"
+	"github.com/danisusanto/go-common/exception"
 )
 
 type resetPasswordRequestHandler struct {

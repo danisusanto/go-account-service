@@ -4,13 +4,13 @@ import (
 	"context"
 	"errors"
 
-	"github.com/dani-susanto/go-common/hash"
+	"github.com/danisusanto/go-common/hash"
 
-	"github.com/dani-susanto/go-account-service/internal/domain/entity"
-	"github.com/dani-susanto/go-account-service/internal/domain/repository"
-	"github.com/dani-susanto/go-common/env"
-	"github.com/dani-susanto/go-common/exception"
-	"github.com/dani-susanto/go-common/log"
+	"github.com/danisusanto/go-account-service/internal/domain/entity"
+	"github.com/danisusanto/go-account-service/internal/domain/repository"
+	"github.com/danisusanto/go-common/env"
+	"github.com/danisusanto/go-common/exception"
+	"github.com/danisusanto/go-common/log"
 )
 
 type VerificationUsedUsecase interface {

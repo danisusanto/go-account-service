@@ -7,10 +7,10 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/dani-susanto/go-account-service/internal/domain/entity"
-	"github.com/dani-susanto/go-account-service/internal/domain/repository"
-	"github.com/dani-susanto/go-account-service/internal/infrastructure/database/postgres"
-	mocklog "github.com/dani-susanto/go-account-service/mocks/log"
+	"github.com/danisusanto/go-account-service/internal/domain/entity"
+	"github.com/danisusanto/go-account-service/internal/domain/repository"
+	"github.com/danisusanto/go-account-service/internal/infrastructure/database/postgres"
+	mocklog "github.com/danisusanto/go-account-service/mocks/log"
 	"github.com/stretchr/testify/assert"
 )
 

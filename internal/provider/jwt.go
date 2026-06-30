@@ -3,8 +3,8 @@ package provider
 import (
 	"time"
 
-	"github.com/dani-susanto/go-common/env"
-	"github.com/dani-susanto/go-common/jwt"
+	"github.com/danisusanto/go-common/env"
+	"github.com/danisusanto/go-common/jwt"
 )
 
 func SetupAccessTokenJWT(env env.Env) (jwt.JWT, error) {

@@ -5,7 +5,7 @@
 package mockjwt
 
 import (
-	"github.com/dani-susanto/go-common/jwt"
+	"github.com/danisusanto/go-common/jwt"
 	mock "github.com/stretchr/testify/mock"
 )
 

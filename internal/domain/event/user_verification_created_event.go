@@ -1,6 +1,6 @@
 package event
 
-import "github.com/dani-susanto/go-account-service/internal/domain/entity"
+import "github.com/danisusanto/go-account-service/internal/domain/entity"
 
 const UserVerificationCreatedEvent = "account.user.verification.created"
 

@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/dani-susanto/go-account-service:${APP_IMAGE_TAG}
+    image: ghcr.io/danisusanto/go-account-service:${APP_IMAGE_TAG}
     container_name: go-account-service-production-app
     env_file:
       - .env.production
@@ -15,7 +15,7 @@ services:
       - infrastructure-production-network
 
   worker:
-    image: ghcr.io/dani-susanto/go-account-service:${APP_IMAGE_TAG}
+    image: ghcr.io/danisusanto/go-account-service:${APP_IMAGE_TAG}
     container_name: go-account-service-production-worker
     env_file:
       - .env.production

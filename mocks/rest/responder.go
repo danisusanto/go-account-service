@@ -7,7 +7,7 @@ package mockrest
 import (
 	"net/http"
 
-	"github.com/dani-susanto/go-common/rest"
+	"github.com/danisusanto/go-common/rest"
 	mock "github.com/stretchr/testify/mock"
 )
 

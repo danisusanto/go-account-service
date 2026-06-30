@@ -3,11 +3,11 @@ package event
 import (
 	"testing"
 
-	"github.com/dani-susanto/go-account-service/internal/domain/event"
-	mockusecase "github.com/dani-susanto/go-account-service/mocks/usecase"
-	"github.com/dani-susanto/go-common/exception"
-	"github.com/dani-susanto/go-common/json"
-	"github.com/dani-susanto/go-common/log"
+	"github.com/danisusanto/go-account-service/internal/domain/event"
+	mockusecase "github.com/danisusanto/go-account-service/mocks/usecase"
+	"github.com/danisusanto/go-common/exception"
+	"github.com/danisusanto/go-common/json"
+	"github.com/danisusanto/go-common/log"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

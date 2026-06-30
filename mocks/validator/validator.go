@@ -5,7 +5,7 @@
 package mockvalidator
 
 import (
-	"github.com/dani-susanto/go-common/validator"
+	"github.com/danisusanto/go-common/validator"
 	mock "github.com/stretchr/testify/mock"
 )
 

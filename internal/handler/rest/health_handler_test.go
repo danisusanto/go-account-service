@@ -5,10 +5,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/dani-susanto/go-common/log"
+	"github.com/danisusanto/go-common/log"
 
-	"github.com/dani-susanto/go-common/json"
-	commonrest "github.com/dani-susanto/go-common/rest"
+	"github.com/danisusanto/go-common/json"
+	commonrest "github.com/danisusanto/go-common/rest"
 	"github.com/stretchr/testify/assert"
 )
 

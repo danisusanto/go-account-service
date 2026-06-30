@@ -3,10 +3,10 @@ package provider
 import (
 	"database/sql"
 
-	"github.com/dani-susanto/go-account-service/internal/domain/repository"
-	"github.com/dani-susanto/go-account-service/internal/infrastructure/cache/redis"
-	"github.com/dani-susanto/go-account-service/internal/infrastructure/database/postgres"
-	"github.com/dani-susanto/go-common/log"
+	"github.com/danisusanto/go-account-service/internal/domain/repository"
+	"github.com/danisusanto/go-account-service/internal/infrastructure/cache/redis"
+	"github.com/danisusanto/go-account-service/internal/infrastructure/database/postgres"
+	"github.com/danisusanto/go-common/log"
 	goredis "github.com/redis/go-redis/v9"
 )
 
